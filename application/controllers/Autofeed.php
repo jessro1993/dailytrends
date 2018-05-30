@@ -10,7 +10,7 @@ class Autofeed extends CI_Controller {
 	public function index()
 	{   
         $url_pais = 'http://ep00.epimg.net/rss/elpais/portada.xml';
-        $url_mundo = 'http://estaticos.elmundo.es/elmundo/rss/espana.xml';
+        $url_mundo = 'http://estaticos.elmundo.es/elmundo/rss/portada.xml';
         
         $this->data['xml_pais'] = simplexml_load_file($url_pais);
         $this->data['xml_mundo'] = simplexml_load_file($url_mundo);

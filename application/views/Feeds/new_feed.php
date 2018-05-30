@@ -12,7 +12,7 @@
 	    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	    <style>
-            #brand, .brand {
+            #brand {
                 font-family: 'Playfair';
                 font-weight: 900;
                 font-size: 2em;
@@ -71,49 +71,27 @@
                     </div>
                 </nav>
             </div>
-            <div class="row my-5 text-center">
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/img/el_pais.jpg" height="50">
-                </div>
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/img/el_mundo.jpg" height="50" style="transform: scale(1.7);">
-                </div>
-                <div class="col-md-4">
-                    <span class="brand">Daily Trends</span>
-                </div>
-            </div>
-            <div class="row my-5">
-                <div class="col-md-4">
-                   <?php for($i = 0; $i < 5; $i++) { ?>
-                            <div class="card mb-3">
-                                <img class="card-img-top" src="<?php echo $xml_pais->channel->item[$i]->enclosure['url']; ?>">
-                                <div class="card-body">
-                                    <h5 class="card-title text-bolder"><?php echo $xml_pais->channel->item[$i]->title; ?></h5>
-                                    <p class="card-text"><?php echo $xml_pais->channel->item[$i]->description; ?></p>
-                                    <p class="card-text">
-                                        <a class="card-link" href="<?php echo $xml_pais->channel->item[$i]->link; ?>">
-                                            Ver fuente original
-                                        </a>
-                                    </p>
-                                </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="<?php echo base_url('Feed/create'); ?>" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="title">Titulo: </label>
+                                <input class="form-control" type="text" name="title">                               
                             </div>
-                    <?php } ?>
+                            <div class="form-group col-md-6">
+                                <label for="author">Autor/a: </label>
+                                <input class="form-control" type="text" name="author">                           
+                           </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="body">Cuerpo de la notícia: </label>
+                            <textarea class="form-control" name="body" id="body_text" cols="30" rows="10"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </form>
                 </div>
-                <div class="col-md-4">
-                   <?php for($i = 0; $i < 5; $i++) { ?>
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title text-bolder"><?php echo $xml_mundo->channel->item[$i]->title; ?></h5>
-                                    <p class="card-text">
-                                        <a class="card-link" href="<?php echo $xml_mundo->channel->item[$i]->link; ?>">
-                                            Ver fuente original
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                    <?php } ?>
-               </div>
             </div>
         </div>
-  </body>
+    </body>
 </html>
