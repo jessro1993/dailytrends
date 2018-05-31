@@ -62,7 +62,7 @@
                                 </a>
                             </li>
                             <li class="nav-item p-2">
-                                <a href="" class="nav-link">
+                                <a href="<?php echo base_url('feed'); ?>" class="nav-link">
                                     <i class="fa fa-rss"></i>
                                     Subscribe
                                 </a>
@@ -88,7 +88,7 @@
                             <label for="body">Cuerpo de la notícia: </label>
                             <textarea class="form-control" name="body" id="body_text" cols="30" rows="10"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Publicar</button>
+                        <input type="submit" class="btn btn-primary" value="Publicar">
                     </form>
                 </div>
             </div>

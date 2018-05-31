@@ -37,14 +37,14 @@
             <div class="nav-scroller py-1 mb-2">
                 <nav class="nav d-flex justify-content-between">
                     <div class="col-md-3 float-left" id="brand">
-                        <a href="<?php echo base_url(); ?>" class="nav-link">
+                        <a href="<?php echo base_url('feed'); ?>" class="nav-link">
                             Daily Trends
                         </a>
                     </div>
                     <div class="col-md-6 float-right border-bottom">
                         <ul class="nav">
                             <li class="nav-item p-2">
-                                <a href="<?php echo base_url(); ?>" class="nav-link" style="color: #0d0d0d">
+                                <a href="<?php echo base_url('Feed'); ?>" class="nav-link" style="color: #0d0d0d">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </a>
@@ -62,7 +62,7 @@
                                 </a>
                             </li>
                             <li class="nav-item p-2">
-                                <a href="" class="nav-link">
+                                <a href="<?php echo base_url(); ?>" class="nav-link">
                                     <i class="fa fa-rss"></i>
                                     Subscribe
                                 </a>
@@ -84,34 +84,64 @@
             </div>
             <div class="row my-5">
                 <div class="col-md-4">
-                   <?php for($i = 0; $i < 5; $i++) { ?>
+                    <?php foreach($feeds as $feed) {
+                        if(preg_match('/PAÍS/', $feed->publisher)) { 
+                    ?>
                             <div class="card mb-3">
-                                <img class="card-img-top" src="<?php echo $xml_pais->channel->item[$i]->enclosure['url']; ?>">
+                                <img class="card-img-top" src="<?php echo $feed->image; ?>">
                                 <div class="card-body">
-                                    <h5 class="card-title text-bolder"><?php echo $xml_pais->channel->item[$i]->title; ?></h5>
-                                    <p class="card-text"><?php echo $xml_pais->channel->item[$i]->description; ?></p>
-                                    <p class="card-text">
-                                        <a class="card-link" href="<?php echo $xml_pais->channel->item[$i]->link; ?>">
-                                            Ver fuente original
+                                    <h5 class="card-title text-bolder">
+                                        <a href="<?php echo $feed->source;?>">
+                                            <?php echo $feed->title; ?>
                                         </a>
+                                    </h5>
+                                    <p class="card-text">
+                                        <?php echo $feed->body; ?>
                                     </p>
                                 </div>
                             </div>
-                    <?php } ?>
+                    <?php }
+                    } ?>
                 </div>
                 <div class="col-md-4">
-                   <?php for($i = 0; $i < 5; $i++) { ?>
+                   <?php foreach($feeds as $feed) {
+                        if(preg_match('/mundo/', $feed->publisher)) { 
+                    ?>
                             <div class="card mb-3">
+                                <img class="card-img-top" src="<?php echo $feed->image; ?>">
                                 <div class="card-body">
-                                    <h5 class="card-title text-bolder"><?php echo $xml_mundo->channel->item[$i]->title; ?></h5>
-                                    <p class="card-text">
-                                        <a class="card-link" href="<?php echo $xml_mundo->channel->item[$i]->link; ?>">
-                                            Ver fuente original
+                                    <h5 class="card-title text-bolder">
+                                        <a href="<?php echo $feed->source;?>">
+                                            <?php echo $feed->title; ?>
                                         </a>
+                                    </h5>
+                                    <p class="card-text">
+                                        <?php echo $feed->body; ?>
                                     </p>
                                 </div>
                             </div>
-                    <?php } ?>
+                    <?php }
+                    } ?>
+               </div>
+               <div class="col-md-4">
+                   <?php foreach($feeds as $feed) {
+                        if(preg_match('/DailyTrends/', $feed->publisher)) { 
+                    ?>
+                            <div class="card mb-3">
+                                <img class="card-img-top" src="<?php echo $feed->image; ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title text-bolder">
+                                        <a href="<?php echo $feed->source;?>">
+                                            <?php echo $feed->title; ?>
+                                        </a>
+                                    </h5>
+                                    <p class="card-text">
+                                        <?php echo $feed->body; ?>
+                                    </p>
+                                </div>
+                            </div>
+                    <?php }
+                    } ?>
                </div>
             </div>
         </div>
