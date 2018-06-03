@@ -44,13 +44,13 @@
                     <div class="col-md-6 float-right border-bottom">
                         <ul class="nav">
                             <li class="nav-item p-2">
-                                <a href="<?php echo base_url('Feed'); ?>" class="nav-link" style="color: #0d0d0d">
+                                <a href="<?php echo base_url('feed'); ?>" class="nav-link" style="color: #0d0d0d">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </a>
                             </li>
                             <li class="nav-item p-2">
-                                <a href="" class="nav-link">
+                                <a href="<?php echo base_url('feed/list'); ?>" class="nav-link">
                                     <i class="fa fa-folder"></i>
                                     List
                                 </a>
@@ -62,7 +62,7 @@
                                 </a>
                             </li>
                             <li class="nav-item p-2">
-                                <a href="<?php echo base_url(); ?>" class="nav-link">
+                                <a href="<?php echo base_url('Rss'); ?>" class="nav-link">
                                     <i class="fa fa-rss"></i>
                                     Subscribe
                                 </a>
@@ -84,9 +84,7 @@
             </div>
             <div class="row my-5">
                 <div class="col-md-4">
-                    <?php foreach($feeds as $feed) {
-                        if(preg_match('/PAÍS/', $feed->publisher)) { 
-                    ?>
+                    <?php foreach($feeds_pais as $feed) { ?>
                             <div class="card mb-3">
                                 <img class="card-img-top" src="<?php echo $feed->image; ?>">
                                 <div class="card-body">
@@ -100,13 +98,10 @@
                                     </p>
                                 </div>
                             </div>
-                    <?php }
-                    } ?>
+                    <?php } ?>
                 </div>
                 <div class="col-md-4">
-                   <?php foreach($feeds as $feed) {
-                        if(preg_match('/mundo/', $feed->publisher)) { 
-                    ?>
+                    <?php foreach($feeds_mundo as $feed) { ?>
                             <div class="card mb-3">
                                 <img class="card-img-top" src="<?php echo $feed->image; ?>">
                                 <div class="card-body">
@@ -120,13 +115,10 @@
                                     </p>
                                 </div>
                             </div>
-                    <?php }
-                    } ?>
+                    <?php } ?>
                </div>
                <div class="col-md-4">
-                   <?php foreach($feeds as $feed) {
-                        if(preg_match('/DailyTrends/', $feed->publisher)) { 
-                    ?>
+                   <?php foreach($feeds_daily as $feed) { ?>
                             <div class="card mb-3">
                                 <img class="card-img-top" src="<?php echo $feed->image; ?>">
                                 <div class="card-body">
@@ -140,8 +132,7 @@
                                     </p>
                                 </div>
                             </div>
-                    <?php }
-                    } ?>
+                    <?php } ?>
                </div>
             </div>
         </div>

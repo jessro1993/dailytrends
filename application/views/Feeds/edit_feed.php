@@ -12,7 +12,7 @@
 	    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	    <style>
-            #brand {
+            #brand, .brand {
                 font-family: 'Playfair';
                 font-weight: 900;
                 font-size: 2em;
@@ -37,14 +37,14 @@
             <div class="nav-scroller py-1 mb-2">
                 <nav class="nav d-flex justify-content-between">
                     <div class="col-md-3 float-left" id="brand">
-                        <a href="<?php echo base_url(); ?>" class="nav-link">
+                        <a href="<?php echo base_url('feed'); ?>" class="nav-link">
                             Daily Trends
                         </a>
                     </div>
                     <div class="col-md-6 float-right border-bottom">
                         <ul class="nav">
                             <li class="nav-item p-2">
-                                <a href="<?php echo base_url(); ?>" class="nav-link" style="color: #0d0d0d">
+                                <a href="<?php echo base_url('feed'); ?>" class="nav-link" style="color: #0d0d0d">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </a>
@@ -71,31 +71,25 @@
                     </div>
                 </nav>
             </div>
-            <div class="row">
+            <div class="row my-5">
                 <div class="col-md-12">
-                    <form action="<?php echo base_url('Feed/create'); ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?php echo base_url('feed/edit/'.$feed->id); ?>" method="post">
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-7">
                                 <label for="title">Titulo: </label>
-                                <input class="form-control" type="text" name="title">                               
+                                <input class="form-control" type="text" name="title_e" value="<?php echo $feed->title; ?>">
+                                <label for="body">Cuerpo de la notícia: </label>
+                                <textarea class="form-control" name="body_e" id="body_text" cols="30" rows="5"><?php echo $feed->body; ?></textarea>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="author">Autor/a: </label>
-                                <input class="form-control" type="text" name="author">                           
-                           </div>
-                           <div class="form-group col-md-4">
-                                <label for="articleItem">Archivo: </label>
-                                <input class="form-control" type="file" name="articleItem">                           
-                           </div>
+                            <div class="col-md-5">
+                                <label for="title">Imagen: </label>
+                                <img src="<?php echo $feed->image; ?>" class="img-fluid">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="body">Cuerpo de la notícia: </label>
-                            <textarea class="form-control" name="body" id="body_text" cols="30" rows="10"></textarea>
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Publicar">
+                        <input type="submit" class="btn btn-primary" value="Editar">
                     </form>
                 </div>
             </div>
         </div>
-    </body>
+  </body>
 </html>

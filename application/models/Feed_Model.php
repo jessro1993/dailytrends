@@ -10,17 +10,29 @@ class Feed_Model extends CI_Model {
 	public function add($data)
 	{
         $publisher = $data->title;
-        
-        for($i = 0; $i < 5; $i++) {
-            $feed = array(
-                'title'     => $data->item[$i]->title,
-                'body'      => $data->item[$i]->description,
-                'image'     => $data->item[$i]->enclosure['url'],
-                'source'    => $data->item[$i]->link,
-                'publisher' => $publisher
-            );
-            
-            $this->db->insert('articles', $feed);
+
+        $articles = $this->db->select('*')->from('articles')->get()->result();
+        $this->db->reset_query();
+
+        for($i = 0; $i < 5; $i++)
+        {
+            if($articles[$i]->title != $data->item[$i]->title)
+            {
+                $id = (int) $this->Feed_Model->get_last_id() + 1;
+
+                $feed = array(
+                    'id'        => $id,
+                    'title'     => $data->item[$i]->title,
+                    'body'      => $data->item[$i]->description,
+                    'image'     => $data->item[$i]->enclosure['url'],
+                    'source'    => explode("#", $data->item[$i]->link)[0],
+                    'publisher' => $publisher
+                );
+                
+                $insert_query = $this->db->insert_string('articles', $feed);
+                $insert_query = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $insert_query);
+                $this->db->query($insert_query);
+            }
         }
     }
     
@@ -41,23 +53,60 @@ class Feed_Model extends CI_Model {
     
     public function delete($data)
     {
-        
+        $this->db->where('id', $data);
+
+        if($this->db->delete('articles'))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
     
     public function edit($data)
     {
-        
+        $id = $data['id'];
+
+        $item = array(
+            'title' => $data['title'],
+            'body'  => $data['body']
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('articles', $item);
     }
 
-    public function get_feeds()
+    public function get_feeds($source = null)
     {   
+        if(is_null($source)) {
+            $this->db->select('*');
+            $this->db->from('articles');
+            $this->db->order_by('date', 'DESC');            
+            
+            $query = $this->db->get();
+        
+            return $query->result();
+        } else {
+            $this->db->select('*');
+            $this->db->from('articles');
+            $this->db->where('source LIKE ', '%' . $source .'%');
+            $this->db->order_by('date', 'DESC');
+            $this->db->limit('5');
+    
+            $query = $this->db->get();
+            
+            return $query->result();
+        }
+    }
+
+    public function get_article($id) 
+    {
         $this->db->select('*');
         $this->db->from('articles');
-        $this->db->order_by('date');
-        
-        $query = $this->db->get();
-        
-        return $query->result();
+        $this->db->where('id', $id);
+
+        return $this->db->get()->row();
     }
     
 }
